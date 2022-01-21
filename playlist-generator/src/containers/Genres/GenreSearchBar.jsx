@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // TODO: auto suggest
-export const GenreSearchBar = () => {
+export const GenreSearchBar = ({ genres, handleSeedSelect }) => {
+    const [filteredGenres, setFilteredGenres] = useState([]);
+    const [value, setValue] = useState('');
+
     const handleChange = (event) => {
-        const searchTerm = event.target.value;
+        const searchTerm = event.target.value.toLowerCase();
         console.log(searchTerm);
+        setValue(searchTerm);
+        genreSearch(searchTerm);
         // run seedselect
         event.preventDefault();
+    };
+
+    const handleClick = (event) => {
+        handleSeedSelect(event.target.value);
+        setValue('');
+        event.preventDefault();
+    };
+
+    const genreSearch = (string) => {
+        const foundGenres = genres.filter((genre) => {
+            return genre.startsWith(string);
+        });
+
+        setFilteredGenres(foundGenres);
     };
 
     return (
@@ -14,9 +33,26 @@ export const GenreSearchBar = () => {
             GenreSearchBar
             <input
                 className="genreInput"
-                type="text"
+                type="search"
+                value={value}
                 onChange={handleChange}
             />
+            {value.length > 0
+                && (
+                    <div className="genreSuggestions">
+                        Suggestions:
+                        {filteredGenres.map((genre) => {
+                            return (
+                                <input
+                                    className="genreButton"
+                                    type="button"
+                                    value={genre}
+                                    onClick={handleClick}
+                                />
+                            );
+                        })}
+                    </div>
+                )}
         </div>
     );
 };

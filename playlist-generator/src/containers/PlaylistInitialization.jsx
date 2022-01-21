@@ -9,6 +9,7 @@ export const PlaylistInitialization = () => {
     const context = useContext(spotifyAppContext);
     const { user, token } = context;
     const [seed, setSeed] = useState([]);
+    const [maxSeedsReached, setMaxSeedsReached] = useState(false);
     const [genres, setGenres] = useState([]);
 
     if (!user || !token) {
@@ -31,14 +32,24 @@ export const PlaylistInitialization = () => {
     }, [seed]);
 
     const handleSeedSelect = (value) => {
+        if (maxSeedsReached) {
+            return;
+        }
+
         const tempSeed = [...seed];
         tempSeed.push(value);
+
+        if (tempSeed.length >= 5) {
+            setMaxSeedsReached(true);
+        }
+
         setSeed(tempSeed);
     };
 
     return (
         <div className="playlistInitialization">
             Hello There! Please select up to 5 seeds in any combination of genres and artist.
+            {maxSeedsReached && <div>MAX SEED REACHED</div>}
             <Genres genres={genres} handleSeedSelect={handleSeedSelect} />
             <ArtistSearchBar />
             {/* <GenerateButton /> */}

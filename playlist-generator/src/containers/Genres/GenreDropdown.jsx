@@ -10,6 +10,7 @@ export const GenreDropdown = ({ genres, handleSeedSelect }) => {
         <div className="genreDropdown">
             GenreDropdown
             <select onChange={handleChange}>
+                <option disabled>--Please Select Genre--</option>
                 {genres.map((genre) => {
                     return (
                         <option value={`${genre}`}>{genre}</option>
