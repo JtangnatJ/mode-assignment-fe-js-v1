@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { spotifyAppContext } from '../utils/Context';
 import { fetchGenres } from '../utils/fetch';
+import { objDeepCheck } from '../utils/utils';
 import { ArtistSearchBar } from './ArtistSearchBar';
 import { Genres } from './Genres/Genres';
 
@@ -37,8 +38,11 @@ export const PlaylistInitialization = () => {
         }
 
         if (seed.length > 0) {
-            // TODO: build comparison
-            return;
+            const equals = seed.filter((elem) => { return objDeepCheck(elem, value); });
+
+            if (equals.length !== 0) {
+                return;
+            }
         }
 
         const tempSeed = [...seed];
