@@ -20,5 +20,5 @@ export const searchArtist = async (token, searchTerm) => {
     });
 
     const data = await response.json();
-    return data.artists;
+    return data.artists.items[0];
 };

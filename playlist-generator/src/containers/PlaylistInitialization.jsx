@@ -36,7 +36,8 @@ export const PlaylistInitialization = () => {
             return;
         }
 
-        if (seed.includes(value)) {
+        if (seed.length > 0) {
+            // TODO: build comparison
             return;
         }
 

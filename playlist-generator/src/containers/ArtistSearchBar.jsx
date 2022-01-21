@@ -19,7 +19,10 @@ export const ArtistSearchBar = ({ handleSeedSelect }) => {
         }
 
         searchArtist(context.token, value).then((response) => {
-            handleSeedSelect(response.items[0].name);
+            const artistName = response.name;
+            const artistID = response.id;
+            console.log(response.id);
+            handleSeedSelect({ type: 'artist', artistName, artistID });
             setValue('');
         }).catch((error) => {
             console.log(error);

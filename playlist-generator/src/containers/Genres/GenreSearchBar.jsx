@@ -14,7 +14,8 @@ export const GenreSearchBar = ({ genres, handleSeedSelect }) => {
     };
 
     const handleClick = (event) => {
-        handleSeedSelect(event.target.value);
+        const genreValue = event.target.value;
+        handleSeedSelect({ type: 'genre', genre: genreValue });
         setValue('');
         event.preventDefault();
     };

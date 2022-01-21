@@ -2,7 +2,8 @@ import React from 'react';
 
 export const GenreDropdown = ({ genres, handleSeedSelect }) => {
     const handleChange = (event) => {
-        handleSeedSelect(event.target.value);
+        const genreValue = event.target.value;
+        handleSeedSelect({ type: 'genre', genre: genreValue });
         event.preventDefault();
     };
 
