@@ -36,6 +36,10 @@ export const PlaylistInitialization = () => {
             return;
         }
 
+        if (seed.includes(value)) {
+            return;
+        }
+
         const tempSeed = [...seed];
         tempSeed.push(value);
 
@@ -51,7 +55,7 @@ export const PlaylistInitialization = () => {
             Hello There! Please select up to 5 seeds in any combination of genres and artist.
             {maxSeedsReached && <div>MAX SEED REACHED</div>}
             <Genres genres={genres} handleSeedSelect={handleSeedSelect} />
-            <ArtistSearchBar />
+            <ArtistSearchBar handleSeedSelect={handleSeedSelect} />
             {/* <GenerateButton /> */}
         </div>
     );

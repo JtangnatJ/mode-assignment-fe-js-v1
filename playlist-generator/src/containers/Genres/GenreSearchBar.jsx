@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-// TODO: auto suggest
 export const GenreSearchBar = ({ genres, handleSeedSelect }) => {
     const [filteredGenres, setFilteredGenres] = useState([]);
     const [value, setValue] = useState('');
 
     const handleChange = (event) => {
         const searchTerm = event.target.value.toLowerCase();
-        console.log(searchTerm);
+        // console.log(searchTerm);
         setValue(searchTerm);
         genreSearch(searchTerm);
         // run seedselect
