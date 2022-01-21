@@ -6,6 +6,7 @@ import { LoginPage } from './LoginPage';
 import { AuthCallback } from './AuthCallback';
 import { NotFoundPage } from './NotFoundPage';
 import { initialAppContext, spotifyAppContext } from '../utils/Context';
+import { PlaylistInitialization } from './PlaylistInitialization';
 
 export const App = () => {
     return (
@@ -21,6 +22,9 @@ export const App = () => {
                         </Route>
                         <Route path="/callback" exact>
                             <AuthCallback />
+                        </Route>
+                        <Route path="/playlistInitialization" exact>
+                            <PlaylistInitialization />
                         </Route>
                         <Route path="*" exact>
                             <NotFoundPage />

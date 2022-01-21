@@ -1,5 +1,5 @@
-import React, { useCallback, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import { spotifyAppContext } from '../utils/Context';
 import '../styles/HomePage.scss';
 import { UserComp } from '../components';
@@ -7,6 +7,7 @@ import { UserComp } from '../components';
 export const HomePage = () => {
     const context = useContext(spotifyAppContext);
     const { user, token } = context;
+    const history = useHistory();
 
     if (!user || !token) {
         // User is NOT logged in, take the user to the login page
@@ -15,10 +16,11 @@ export const HomePage = () => {
         );
     }
 
-    const onCreatePlaylistClick = useCallback(() => {
+    const onCreatePlaylistClick = () => {
         // eslint-disable-next-line no-alert
-        alert('Todo');
-    }, []);
+        // <Redirect to="/playlistSettings" />;
+        history.replace('/playlistInitialization');
+    };
 
     return (
         <div className="home-page">
