@@ -4,7 +4,7 @@
  * You must create a Spotify App here https://developer.spotify.com/dashboard/applications and replace this CLIENT_ID with your App's CLIENT_ID.
  * Also, you must add 'http://localhost:3000/callback' as one of your app's 'Redirect URIs'
  */
-export const CLIENT_ID = 'CHANGE THIS TO YOUR CLIENT ID';
+export const CLIENT_ID = 'a2bfcc9e08824bbeb6487512d916c095';
 export const REDIRECT_URI = 'http://localhost:3000/callback';
 
 export const LOGIN_URL = 'https://accounts.spotify.com/authorize';
