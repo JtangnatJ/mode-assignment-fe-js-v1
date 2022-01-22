@@ -61,8 +61,6 @@ export const getRecommendations = async (user, token, artists, genres) => {
 };
 
 export const savePlaylist = async (user, token, playlistName, tracks) => {
-    console.log('tracks', tracks);
-
     const createOptions = {
         method: 'POST',
         body: JSON.stringify({
@@ -73,18 +71,13 @@ export const savePlaylist = async (user, token, playlistName, tracks) => {
     };
 
     const createPlaylist = await spotifyFetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, token, {}, createOptions);
-    console.log('NEW PLAYLIST', createPlaylist);
     const playlistID = createPlaylist.id;
-
-    console.log(playlistID);
 
     const songsToAdd = [];
 
     tracks.forEach((track) => {
         songsToAdd.push(track.uri);
     });
-
-    console.log(songsToAdd);
 
     const addSongsOptions = {
         method: 'POST',
@@ -94,6 +87,5 @@ export const savePlaylist = async (user, token, playlistName, tracks) => {
     };
 
     const addSongs = await spotifyFetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, token, {}, addSongsOptions);
-    console.log(addSongs);
     return addSongs;
 };
