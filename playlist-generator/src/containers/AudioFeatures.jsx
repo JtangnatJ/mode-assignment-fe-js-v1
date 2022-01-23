@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { Option } from '../components/Option';
 
 const AUDIO_FEATURES = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'popularity', 'valence'];
-const PLAYLIST_DURATION = [30, 45, 60, 90];
 
-export const AudioFeatures = () => {
+export const AudioFeatures = ({ handleAudioFeatures }) => {
     const [preferredFeatures, setPreferredFeatures] = useState({});
 
     const handleChange = (event) => {
-        const temp = { preferredFeatures };
+        const temp = { ...preferredFeatures };
 
         temp[event.target.name] = event.target.value;
 
         setPreferredFeatures(temp);
+
+        handleAudioFeatures(temp);
 
         event.preventDefault();
     };
@@ -21,7 +21,7 @@ export const AudioFeatures = () => {
         <div>
             Audio Features:
             Feel free to customize playlist vibe:
-            (each goes from 0-100)
+            (each goes from 0-100%)
             {AUDIO_FEATURES.map((feature) => {
                 return (
                     <div>
@@ -30,19 +30,6 @@ export const AudioFeatures = () => {
                     </div>
                 );
             })}
-            Total playtime of playlist in minutes:
-            <select onChange={handleChange}>
-                <option disabled selected>--</option>
-                {PLAYLIST_DURATION.map((time) => {
-                    return (
-                        <Option value={time} />
-                    );
-                })}
-                {/* <option>30</option>
-                <option>45</option>
-                <option>60</option>
-                <option>90</option> */}
-            </select>
         </div>
     );
 };
