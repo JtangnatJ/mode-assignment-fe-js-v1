@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { spotifyAppContext } from '../utils/Context';
@@ -7,7 +8,9 @@ import { ArtistSearchBar } from './ArtistSearchBar';
 import { AudioFeatures } from './AudioFeatures';
 // import { GenerateButton } from './GenerateButton';
 import { Genres } from './Genres/Genres';
+import { PlaylistDuration } from './PlaylistDuration';
 import { RecommendedTracks } from './RecommendedTracks';
+import { SeedsVisual } from './SeedsVisual';
 
 export const PlaylistInitialization = () => {
     const context = useContext(spotifyAppContext);
@@ -16,27 +19,25 @@ export const PlaylistInitialization = () => {
     const [maxSeedsReached, setMaxSeedsReached] = useState(false);
     const [noSeeds, setNoSeeds] = useState(false);
     const [genres, setGenres] = useState([]);
+    const [audioFeatures, setAudioFeatures] = useState({});
+    const [playlistDuration, setPlaylistDuration] = useState(1800000);
     const [generatedTracks, setGeneratedTracks] = useState([]);
+    const [generatedTracksIndex, setGeneratedTracksIndex] = useState(0);
 
+    // User is NOT logged in, take the user to the login page
     if (!user || !token) {
-        // User is NOT logged in, take the user to the login page
-        return (
-            <Redirect to="/login" />
-        );
+        return <Redirect to="/login" />;
     }
 
     useEffect(() => {
-        fetchGenres(token).then((response) => {
-            setGenres(response);
-        }).catch((error) => {
-            console.log(error);
-        });
+        fetchGenres(token)
+            .then((response) => {
+                setGenres(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
-
-    // TODO: delete
-    useEffect(() => {
-        console.log(seed);
-    }, [seed]);
 
     const handleSeedSelect = (value) => {
         if (maxSeedsReached) {
@@ -44,7 +45,9 @@ export const PlaylistInitialization = () => {
         }
 
         if (seed.length > 0) {
-            const equals = seed.filter((elem) => { return objDeepCheck(elem, value); });
+            const equals = seed.filter((elem) => {
+                return objDeepCheck(elem, value);
+            });
 
             if (equals.length !== 0) {
                 return;
@@ -62,13 +65,35 @@ export const PlaylistInitialization = () => {
         setNoSeeds(false);
     };
 
+    const handleDeleteSeed = (seedToDelete) => {
+        const temp = [...seed];
+
+        const remainingSeeds = temp.filter((elem) => { return elem.name !== seedToDelete; });
+
+        setSeed(remainingSeeds);
+    };
+
+    const handleAudioFeatures = (features) => {
+        setAudioFeatures(features);
+    };
+
+    const handleDuration = (duration) => {
+        const durationMS = duration * 60000;
+        setPlaylistDuration(durationMS);
+    };
+
     const handleGenerate = () => {
+        // deny generation if there are no seeds
         if (seed.length === 0) {
             setNoSeeds(true);
+            return;
         }
 
+        // transforming strings for fetch queries
         let seedArtists = '';
         let seedGenres = '';
+        let audioFeaturesQuery = '';
+
         seed.forEach((elem) => {
             if (elem.type === 'artist') {
                 if (seedArtists === '') {
@@ -77,31 +102,72 @@ export const PlaylistInitialization = () => {
                     seedArtists += `,${elem.artistID}`;
                 }
             } else if (seedGenres === '') {
-                seedGenres += `${elem.genre}`;
+                seedGenres += `${elem.name}`;
             } else {
-                seedGenres += `,${elem.genre}`;
+                seedGenres += `,${elem.name}`;
             }
         });
 
-        getRecommendations(user, token, seedArtists, seedGenres).then((response) => {
-            console.log('GENERATED', response);
-            setGeneratedTracks(response.tracks);
-        }).catch((error) => {
-            console.log(error);
+        Object.entries(audioFeatures).forEach(([key, value]) => {
+            audioFeaturesQuery += `&target_${key}=${value / 100}`;
         });
+
+        // fetch recommendations
+        getRecommendations(
+            user,
+            token,
+            seedArtists,
+            seedGenres,
+            audioFeaturesQuery,
+        )
+            // manipulation of generated tracks
+            .then((response) => {
+                console.log('GENERATED', response);
+                const { tracks } = response;
+                const displayedSongs = [];
+                let displayedTime = 0;
+
+                if (generatedTracks.length > 0) {
+                    let i = generatedTracksIndex;
+                    while (displayedTime < playlistDuration) {
+                        i %= tracks.length;
+                        displayedSongs.push(tracks[i]);
+                        displayedTime += tracks[i].duration_ms;
+                        setGeneratedTracksIndex(i + 1);
+                        i++;
+                    }
+                } else {
+                    tracks.forEach((track) => {
+                        if (displayedTime < playlistDuration) {
+                            displayedSongs.push(track);
+                            displayedTime += track.duration_ms;
+                        }
+                    });
+                }
+
+                console.log('TEST', displayedSongs);
+                setGeneratedTracks(displayedSongs);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
         <div className="playlistInitialization">
-            Hello There! Please select up to 5 seeds in any combination of genres and artist.
+            Hello There! Please select up to 5 seeds in any combination of
+            genres and artist.
             {/* display seeds */}
+            <SeedsVisual seeds={seed} deleteSeed={handleDeleteSeed} />
             {noSeeds && <div>PLEASE ADD SEEDS FIRST</div>}
             {maxSeedsReached && <div>MAX SEED REACHED</div>}
             <Genres genres={genres} handleSeedSelect={handleSeedSelect} />
             <ArtistSearchBar handleSeedSelect={handleSeedSelect} />
-            <AudioFeatures />
-            {/* Total playtime in minutes: 30/45/60/90 */}
-            <button type="button" onClick={handleGenerate}>GENERATE</button>
+            <AudioFeatures handleAudioFeatures={handleAudioFeatures} />
+            <PlaylistDuration handleDuration={handleDuration} />
+            <button type="button" onClick={handleGenerate}>
+                GENERATE
+            </button>
             <RecommendedTracks generatedTracks={generatedTracks} />
         </div>
     );
