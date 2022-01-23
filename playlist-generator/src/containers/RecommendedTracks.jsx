@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SavePlaylistButton } from './SavePlayListButton';
 
 export const RecommendedTracks = ({ generatedTracks }) => {
-    const [tracks, setTracks] = useState([]);
     const [playlistName, setPlaylistName] = useState('Playlist');
-
-    useEffect(() => {
-        setTracks(generatedTracks);
-    }, [generatedTracks]);
 
     const handleChange = (e) => {
         setPlaylistName(e.target.value);
@@ -21,9 +16,9 @@ export const RecommendedTracks = ({ generatedTracks }) => {
                     {/* name playlist, save playlist */}
                     <div>
                         <input type="text" value={playlistName} onChange={handleChange} />
-                        <SavePlaylistButton playlistName={playlistName} tracks={tracks} />
+                        <SavePlaylistButton playlistName={playlistName} tracks={generatedTracks} />
                     </div>
-                    {tracks.map((track) => { return (<div>{track.name}</div>); })}
+                    {generatedTracks.map((track) => { return (<div>{track.name}</div>); })}
                 </div>
             )}
         </div>
