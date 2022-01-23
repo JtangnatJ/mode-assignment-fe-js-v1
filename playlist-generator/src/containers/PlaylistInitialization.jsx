@@ -76,6 +76,8 @@ export const PlaylistInitialization = () => {
                 } else {
                     seedArtists += `,${elem.artistID}`;
                 }
+            } else if (seedGenres === '') {
+                seedGenres += `${elem.genre}`;
             } else {
                 seedGenres += `,${elem.genre}`;
             }
