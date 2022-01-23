@@ -33,7 +33,6 @@ export const ArtistSearchBar = ({ handleSeedSelect }) => {
     return (
         <div className="artistSearchBar">
             ArtistSearchBar
-            {/* TODO: test query */}
             <form onSubmit={handleSubmit}>
                 <input type="search" value={value} onChange={handleChange} />
             </form>

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { Option } from '../components/Option';
 
 const AUDIO_FEATURES = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'popularity', 'valence'];
+const PLAYLIST_DURATION = [30, 45, 60, 90];
 
 export const AudioFeatures = () => {
     const [preferredFeatures, setPreferredFeatures] = useState({});
 
     const handleChange = (event) => {
-        const temp = { ...preferredFeatures };
+        const temp = { preferredFeatures };
 
         temp[event.target.name] = event.target.value;
 
@@ -29,11 +31,17 @@ export const AudioFeatures = () => {
                 );
             })}
             Total playtime of playlist in minutes:
-            <select>
-                <option>30</option>
+            <select onChange={handleChange}>
+                <option disabled selected>--</option>
+                {PLAYLIST_DURATION.map((time) => {
+                    return (
+                        <Option value={time} />
+                    );
+                })}
+                {/* <option>30</option>
                 <option>45</option>
                 <option>60</option>
-                <option>90</option>
+                <option>90</option> */}
             </select>
         </div>
     );

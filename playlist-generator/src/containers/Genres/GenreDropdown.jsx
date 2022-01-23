@@ -1,4 +1,5 @@
 import React from 'react';
+import { Option } from '../../components/Option';
 
 export const GenreDropdown = ({ genres, handleSeedSelect }) => {
     const handleChange = (event) => {
@@ -14,7 +15,7 @@ export const GenreDropdown = ({ genres, handleSeedSelect }) => {
                 <option disabled selected>--Please Select Genre--</option>
                 {genres.map((genre) => {
                     return (
-                        <option value={`${genre}`}>{genre}</option>
+                        <Option value={genre} />
                     );
                 })}
             </select>
