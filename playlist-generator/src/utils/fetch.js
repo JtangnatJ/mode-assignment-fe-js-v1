@@ -8,6 +8,8 @@ const spotifyFetch = async (url, token, params = {}, options) => {
     Object.entries(params).forEach(([key, value], index) => {
         if (index === 0) {
             queryString += `${key}=${encodeURIComponent(value)}`;
+        } else if (key === 'audioFeatures') {
+            queryString += value;
         } else {
             queryString += `&${key}=${encodeURIComponent(value)}`;
         }
@@ -42,11 +44,13 @@ export const searchArtist = async (token, searchTerm) => {
     return response.artists.items[0];
 };
 
-export const getRecommendations = async (user, token, artists, genres) => {
+export const getRecommendations = async (user, token, artists, genres, audioFeatures) => {
     const params = {
+        limit: 35,
         market: user.country,
         seed_artists: artists,
         seed_genres: genres,
+        audioFeatures,
     };
 
     Object.entries(params).forEach(([key, value]) => {

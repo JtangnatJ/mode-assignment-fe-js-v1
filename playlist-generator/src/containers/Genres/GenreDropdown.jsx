@@ -4,7 +4,7 @@ import { Option } from '../../components/Option';
 export const GenreDropdown = ({ genres, handleSeedSelect }) => {
     const handleChange = (event) => {
         const genreValue = event.target.value;
-        handleSeedSelect({ type: 'genre', genre: genreValue });
+        handleSeedSelect({ type: 'genre', name: genreValue });
         event.preventDefault();
     };
 

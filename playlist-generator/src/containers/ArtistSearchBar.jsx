@@ -4,7 +4,6 @@ import { searchArtist } from '../utils/fetch';
 
 export const ArtistSearchBar = ({ handleSeedSelect }) => {
     const context = useContext(spotifyAppContext);
-    // const { user, token } = context;
     const [value, setValue] = useState('');
 
     const handleChange = (event) => {
@@ -19,10 +18,9 @@ export const ArtistSearchBar = ({ handleSeedSelect }) => {
         }
 
         searchArtist(context.token, value).then((response) => {
-            const artistName = response.name;
+            const { name } = response;
             const artistID = response.id;
-            console.log(response.id);
-            handleSeedSelect({ type: 'artist', artistName, artistID });
+            handleSeedSelect({ type: 'artist', name, artistID });
             setValue('');
         }).catch((error) => {
             console.log(error);
