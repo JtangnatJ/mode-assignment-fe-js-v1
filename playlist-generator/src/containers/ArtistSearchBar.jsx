@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { spotifyAppContext } from '../utils/Context';
 import { searchArtist } from '../utils/fetch';
+import '../styles/ArtistSearchBar.scss';
 
 export const ArtistSearchBar = ({ handleSeedSelect }) => {
     const context = useContext(spotifyAppContext);
@@ -30,7 +31,10 @@ export const ArtistSearchBar = ({ handleSeedSelect }) => {
 
     return (
         <div className="artistSearchBar">
-            ArtistSearchBar
+            <div className="artistSearchLabel">
+                Search an artist and enter:
+            </div>
+
             <form onSubmit={handleSubmit}>
                 <input type="search" value={value} onChange={handleChange} />
             </form>

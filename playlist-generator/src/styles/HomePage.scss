@@ -1,3 +1,5 @@
+@import "Button";
+@import "Text";
 
 .home-page {
     display: flex;
@@ -15,24 +17,13 @@
         }
     
         .user-name {
-            font-size: 30px;
-            margin-bottom: 20px;
-            max-width: 500px;
-            text-align: center;
+            @include mainText;
         }    
     }
 
     .button {
         margin: 20px;
         font-size: 20px;
-        border-radius: 20px;
-        background-color: #1ed660;
-        color: #ffffff;
-        padding: 10px 20px;
-        border: none;
-        min-width: 200px;
-        cursor: pointer;
-        text-align: center;
-        font-weight: bold;
+        @include green-button;
     }
 }

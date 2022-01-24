@@ -1,0 +1,23 @@
+@import "_colors";
+@import "Text";
+@import "Button";
+
+
+.playlistInitialization {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .welcome {
+        @include headerText;
+    }
+
+    .warning {
+        @include warningText;
+    }
+
+    .generateButton {
+        @include green-button;
+        margin-bottom: 10px;
+    }
+}

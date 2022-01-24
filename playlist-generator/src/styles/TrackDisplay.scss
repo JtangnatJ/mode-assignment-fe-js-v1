@@ -1,0 +1,46 @@
+@import "Text";
+@import "utils";
+@import "_colors";
+
+.displayedTrack {
+    @include horizontalContainers;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $black;
+
+    &:last-of-type {
+        border-bottom: none;
+    }
+
+    .trackImg {
+        justify-self: flex-start;
+        max-width: 125px;
+        max-height: 125px;
+        margin-right: 5px;
+    }
+
+    .trackBreakdown {
+        @include verticalContainers;
+        align-items: flex-start;
+        margin-bottom: 0px;
+        justify-content: space-between;
+        flex: 1;
+
+        .titleArtist, .albumRelease {
+            flex: 1;
+            @include verticalContainers;
+            justify-content: space-between;
+            margin-bottom: 0px;
+        }
+
+        .trackInfo {
+            @include horizontalContainers;
+            align-self: flex-start;
+            margin-bottom: 0px;
+
+            .trackInfoLabel {
+                margin-right: 5px;
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { savePlaylist } from '../utils/fetch';
 import { spotifyAppContext } from '../utils/Context';
+import '../styles/SavePlayListButton.scss';
 
 export const SavePlaylistButton = ({ playlistName, tracks }) => {
     const context = useContext(spotifyAppContext);
@@ -12,6 +13,6 @@ export const SavePlaylistButton = ({ playlistName, tracks }) => {
     };
 
     return (
-        <button type="button" onClick={handleClick}>Save Playlist</button>
+        <button type="button" className="saveButton" onClick={handleClick}>Save Playlist</button>
     );
 };

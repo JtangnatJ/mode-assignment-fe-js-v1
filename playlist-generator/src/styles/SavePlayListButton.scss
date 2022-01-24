@@ -1,0 +1,8 @@
+@import "Button";
+
+.saveButton {
+    @include green-button;
+    padding: 2px 2px;
+    min-width: 100px;
+    margin-left: 10px;
+}

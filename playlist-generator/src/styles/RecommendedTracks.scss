@@ -1,0 +1,15 @@
+@import "utils";
+
+.recommendedTracksWrapper {
+    @include verticalContainers;
+    width: 80%;
+
+    .recommendedTracks {
+        @include verticalContainers;
+        width: 100%;
+    }
+
+    .playlistInteraction {
+        margin-bottom: 10px;
+    }
+}

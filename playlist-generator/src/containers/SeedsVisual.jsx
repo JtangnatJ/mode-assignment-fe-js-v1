@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../styles/SeedsVisual.scss';
 
 export const SeedsVisual = ({ seeds, deleteSeed }) => {
     const [seedsArray, setSeedsArray] = useState([]);
@@ -22,8 +23,10 @@ export const SeedsVisual = ({ seeds, deleteSeed }) => {
         <div className="displaySeeds">
             {seedsArray.map((seed) => {
                 return (
-                    <div>
-                        {seed}
+                    <div className="seed">
+                        <div className="seedText">
+                            {seed}
+                        </div>
                         <button type="button" name={seed} onClick={handleClick}>x</button>
                     </div>
                 );

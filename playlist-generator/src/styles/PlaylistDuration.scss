@@ -1,0 +1,10 @@
+@import "utils";
+@import "Text";
+
+.playlistDuration {
+    @include horizontalContainers;
+
+    .playlistDurationLabel {
+        @include labelText;
+    }
+}

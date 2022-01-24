@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { SavePlaylistButton } from './SavePlayListButton';
+import { TrackDisplay } from './TrackDisplay';
+import '../styles/RecommendedTracks.scss';
 
 export const RecommendedTracks = ({ generatedTracks }) => {
     const [playlistName, setPlaylistName] = useState('Playlist');
@@ -10,15 +12,15 @@ export const RecommendedTracks = ({ generatedTracks }) => {
     };
 
     return (
-        <div>
+        <div className="recommendedTracksWrapper">
             {generatedTracks.length > 0 && (
                 <div className="recommendedTracks">
                     {/* name playlist, save playlist */}
-                    <div>
-                        <input type="text" value={playlistName} onChange={handleChange} />
+                    <div className="playlistInteraction">
+                        <input type="text" className="playlistTitle" value={playlistName} onChange={handleChange} />
                         <SavePlaylistButton playlistName={playlistName} tracks={generatedTracks} />
                     </div>
-                    {generatedTracks.map((track) => { return (<div>{track.name}</div>); })}
+                    {generatedTracks.map((track) => { return (<TrackDisplay track={track} />); })}
                 </div>
             )}
         </div>

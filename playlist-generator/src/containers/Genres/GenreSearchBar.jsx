@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../styles/GenreSearchBar.scss';
 
 export const GenreSearchBar = ({ genres, handleSeedSelect }) => {
     const [filteredGenres, setFilteredGenres] = useState([]);
@@ -17,10 +18,16 @@ export const GenreSearchBar = ({ genres, handleSeedSelect }) => {
         const genreValue = event.target.value;
         handleSeedSelect({ type: 'genre', name: genreValue });
         setValue('');
+        setFilteredGenres([]);
         event.preventDefault();
     };
 
     const genreSearch = (string) => {
+        if (string === '') {
+            setFilteredGenres([]);
+            return;
+        }
+
         const foundGenres = genres.filter((genre) => {
             return genre.startsWith(string);
         });
@@ -29,18 +36,20 @@ export const GenreSearchBar = ({ genres, handleSeedSelect }) => {
     };
 
     return (
-        <div>
-            GenreSearchBar
-            <input
-                className="genreInput"
-                type="search"
-                value={value}
-                onChange={handleChange}
-            />
-            {value.length > 0
-                && (
+        <div className="genreSearch">
+            <div className="genreSearchLabel">
+                Search for a genre:
+            </div>
+            <div className="genreSearchBar">
+                <input
+                    className="genreInput"
+                    type="search"
+                    size="15"
+                    value={value}
+                    onChange={handleChange}
+                />
+                {filteredGenres.length > 0 && (
                     <div className="genreSuggestions">
-                        Suggestions:
                         {filteredGenres.map((genre) => {
                             return (
                                 <input
@@ -53,6 +62,7 @@ export const GenreSearchBar = ({ genres, handleSeedSelect }) => {
                         })}
                     </div>
                 )}
+            </div>
         </div>
     );
 };

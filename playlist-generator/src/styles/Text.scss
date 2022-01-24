@@ -1,0 +1,26 @@
+@import "_colors";
+
+@mixin mainText {
+	font-size: 30px;
+	margin-bottom: 20px;
+	max-width: 500px;
+	text-align: center;
+}
+
+@mixin headerText {
+	font-size: 25px;
+	margin-bottom: 10px;
+	max-width: 500px;
+	text-align: center;
+}
+
+@mixin labelText {
+    font-size: 18px;
+	max-width: 500px;
+	text-align: center;
+    padding-right: 5px;
+}
+
+@mixin warningText {
+    color: $red;
+}

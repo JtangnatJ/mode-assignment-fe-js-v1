@@ -1,0 +1,16 @@
+@import "Text";
+@import "utils";
+
+.genreDropdown {
+    @include horizontalContainers;
+    margin-bottom:  0;
+
+    .genreDropdownLabel {
+        @include labelText;
+        padding-left: 5px;
+    }
+
+    .genreSelect {
+        margin: auto;
+    }
+}

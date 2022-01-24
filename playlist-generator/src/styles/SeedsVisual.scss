@@ -1,0 +1,30 @@
+@import "utils";
+@import "colors";
+
+.displaySeeds {
+    @include horizontalContainers;
+
+    .seed {
+        @include horizontalContainers;
+        align-items: center;
+        background-color: $green;
+        font-size: 12px;
+        margin: 1px 5px;
+
+        .seedText {
+            color: $white;
+            padding: 2px 5px;
+
+        }
+
+        button {
+            background: none;
+            border: none;
+            border-left: 1px solid $black;
+            color: $white;
+            height: 100%;
+            font-size: 10px;
+            padding: 0px 5px;
+        }
+    }
+}

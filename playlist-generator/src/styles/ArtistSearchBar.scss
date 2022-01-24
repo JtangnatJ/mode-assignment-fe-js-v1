@@ -1,0 +1,10 @@
+@import "Text";
+@import "utils";
+
+.artistSearchBar {
+    @include horizontalContainers;
+
+    .artistSearchLabel {
+        @include labelText;
+    }
+}

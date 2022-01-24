@@ -1,0 +1,13 @@
+@mixin horizontalContainers {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+@mixin verticalContainers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+

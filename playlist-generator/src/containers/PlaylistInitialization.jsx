@@ -11,6 +11,7 @@ import { Genres } from './Genres/Genres';
 import { PlaylistDuration } from './PlaylistDuration';
 import { RecommendedTracks } from './RecommendedTracks';
 import { SeedsVisual } from './SeedsVisual';
+import '../styles/PlaylistInitialization.scss';
 
 export const PlaylistInitialization = () => {
     const context = useContext(spotifyAppContext);
@@ -155,19 +156,28 @@ export const PlaylistInitialization = () => {
 
     return (
         <div className="playlistInitialization">
-            Hello There! Please select up to 5 seeds in any combination of
-            genres and artist.
-            {/* display seeds */}
+            <div className="welcome">
+                Hello There! Please select up to 5 seeds in any combination of
+                genres and artist.
+            </div>
+
             <SeedsVisual seeds={seed} deleteSeed={handleDeleteSeed} />
-            {noSeeds && <div>PLEASE ADD SEEDS FIRST</div>}
-            {maxSeedsReached && <div>MAX SEED REACHED</div>}
+
+            {noSeeds && <div className="warning">PLEASE ADD SEEDS FIRST</div>}
+            {maxSeedsReached && <div className="warning">MAX SEEDS REACHED</div>}
+
             <Genres genres={genres} handleSeedSelect={handleSeedSelect} />
+
             <ArtistSearchBar handleSeedSelect={handleSeedSelect} />
+
             <AudioFeatures handleAudioFeatures={handleAudioFeatures} />
+
             <PlaylistDuration handleDuration={handleDuration} />
-            <button type="button" onClick={handleGenerate}>
+
+            <button className="generateButton" type="button" onClick={handleGenerate}>
                 GENERATE
             </button>
+
             <RecommendedTracks generatedTracks={generatedTracks} />
         </div>
     );

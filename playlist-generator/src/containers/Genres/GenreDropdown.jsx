@@ -1,5 +1,6 @@
 import React from 'react';
 import { Option } from '../../components/Option';
+import '../../styles/GenreDropdown.scss';
 
 export const GenreDropdown = ({ genres, handleSeedSelect }) => {
     const handleChange = (event) => {
@@ -10,13 +11,13 @@ export const GenreDropdown = ({ genres, handleSeedSelect }) => {
 
     return (
         <div className="genreDropdown">
-            GenreDropdown
-            <select onChange={handleChange}>
-                <option disabled selected>--Please Select Genre--</option>
+            <div className="genreDropdownLabel">or select:</div>
+            <select onChange={handleChange} className="genreSelect">
+                <option disabled selected>
+                    --Please Select Genre--
+                </option>
                 {genres.map((genre) => {
-                    return (
-                        <Option value={genre} />
-                    );
+                    return <Option value={genre} />;
                 })}
             </select>
         </div>
